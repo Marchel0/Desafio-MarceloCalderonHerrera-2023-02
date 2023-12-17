@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Artist;
 use App\Models\MusicGenre;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
 class ArtistController extends Controller
 {
     /**
@@ -50,7 +50,7 @@ class ArtistController extends Controller
             'group_type' => $validatedData['group_type'],
         ]);
         $artist->musicGenre()->attach($validatedData['artist_music_genres']);
-
+        Session::flash('success', 'Artista agregado exitosamente.');
         return redirect()->route('DashboardArtist.index');
     }
 
@@ -94,6 +94,13 @@ class ArtistController extends Controller
             'group_type' => 'required|in:Solista,Banda,Duo,Otro',
             'artist_music_genres' => 'array',
         ]);
+
+        $dataChanged = (
+            $artist->name !== $validatedData['name'] ||
+            $artist->group_type !== $validatedData['group_type'] ||
+            !empty(array_diff($artist->musicGenre->pluck('id')->toArray(), $validatedData['artist_music_genres']))
+        );
+
         $artist->name = $validatedData['name'];
         $artist->group_type = $validatedData['group_type'];
         $artist->save();
@@ -103,7 +110,12 @@ class ArtistController extends Controller
         } else {
             $artist->musicGenre()->detach();
         }
-
+        //Mensaje de éxito basado en si los datos han cambiado
+        if ($dataChanged) {
+            Session::flash('success', 'Los datos se actualizaron exitosamente.');
+        } else {
+            Session::flash('info', 'No se realizaron cambios en los datos.');
+        }
         return redirect()->route('DashboardArtist.index');
     }
 
@@ -117,6 +129,7 @@ class ArtistController extends Controller
     {
         $artist = Artist::findOrFail($id);
         $artist->delete();
+        Session::flash('success', 'Los datos se actualizaron exitosamente.');
         return redirect()->route('DashboardArtist.index');
     }
 }

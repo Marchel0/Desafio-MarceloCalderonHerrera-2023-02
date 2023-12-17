@@ -11,62 +11,56 @@
         href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
 @endsection
 
-@section('pageTitle', 'Dashboard Artistas')
+@section('pageTitle', 'Dashboard Canciones')
 
 @section('content')
     <div id="layoutSidenav_content" class="position-relative">
         <main class="position-relative content-margin">
             <div class="container-fluid">
-                <h1 class="mb-0">Artistas</h1>
+                <h1 class="mb-0">Canciones</h1>
                 <ol class="breadcrumb ">
-                    <li class="breadcrumb-item active">Dashboard/Artista</li>
+                    <li class="breadcrumb-item active">Dashboard/Canciones</li>
                 </ol>
                 <div class="card mt-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Listado de Artistas</h5>
+                        <h5 class="mb-0">Listado de Canciones</h5>
                         <div class="d-flex align-items-center">
                             <button class="btn btn-danger me-2" id="pdfButton"><i class="fa-solid fa-file-pdf"></i>
                                 PDF</button>
                             <button class="btn btn-success me-2" id="excelButton"><i class="fa-solid fa-file-excel"></i>
                                 Excel</button>
-                            <a class="btn btn-primary" href="{{ route('DashboardArtist.create') }}"><i
+                            <a class="btn btn-primary" href="{{ route('DashboardSong.create') }}"><i
                                     class="fa-solid fa-plus"></i> Añadir</a>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive"> <!-- Agregamos la clase para manejar el scroll -->
-                            <table id="artist" class="table table-dark table-striped"
+                            <table id="song" class="table table-dark table-striped"
                                 style="width: 100%; overflow-x: auto;">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Tipo de artista</th>
-                                        <th scope="col">Géneros</th>
+                                        <th scope="col">Titulo Canción</th>
+                                        <th scope="col">Archivo mp3</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($artists as $artist)
+                                    @foreach ($song as $song)
                                         <tr>
-                                            <td>{{ $artist->id }}</td>
-                                            <td>{{ $artist->name }}</td>
-                                            <td>{{ $artist->group_type }}</td>
+                                            <td>{{ $song->id }}</td>
+                                            <td>{{ $song->title }}</td>
+                                            <td>{{ $song->mp3_file_url }}</td>
                                             <td>
-                                                @foreach ($artist->musicGenre as $musicGenre)
-                                                    {{ $musicGenre->name }},
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                <form id="delete-form-{{ $artist->id }}"
-                                                    action="{{ route('DashboardArtist.destroy', $artist->id) }}"
+                                                <form id="delete-form-{{ $song->id }}"
+                                                    action="{{ route('DashboardSong.destroy', $song->id) }}"
                                                     method="POST">
                                                     <a class="btn btn-info"
-                                                        href="{{ route('DashboardArtist.edit', ['id' => $artist->id]) }}">
+                                                        href="{{ route('DashboardSong.edit', ['id' => $song->id]) }}">
                                                         <i class="fa-solid fa-pen-to-square"></i> Editar
                                                     </a>
                                                     @csrf
-                                                    <button onclick="confirmDelete(event, {{ $artist->id }})"
+                                                    <button onclick="confirmDelete(event, {{ $song->id }})"
                                                         class="btn btn-danger">
                                                         <i class="fa-solid fa-trash"></i> Borrar
                                                     </button>
@@ -147,7 +141,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            var table = $('#artist').DataTable({
+            var table = $('#song').DataTable({
                 responsive: true,
                 buttons: [{
                         extend: 'excel',

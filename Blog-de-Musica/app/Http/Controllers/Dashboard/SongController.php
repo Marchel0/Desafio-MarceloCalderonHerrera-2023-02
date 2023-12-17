@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SongController extends Controller
 {
@@ -14,7 +16,8 @@ class SongController extends Controller
      */
     public function index()
     {
-        //
+        $song    = Song::all();
+        return view('dashboard.song.index', ['song' => $song]);
     }
 
     /**
@@ -24,7 +27,7 @@ class SongController extends Controller
      */
     public function create()
     {
-        //
+        return response()->view('dashboard.song.create');
     }
 
     /**
@@ -35,7 +38,19 @@ class SongController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'string|max:255',
+            'mp3_file_url' => 'file',
+        ]);
+
+        $mp3_file = $request->file('mp3_file_url')->store('songs', 'public');
+        $song = new Song();
+        $song->title = $request->title;
+        $song->mp3_file_url = $mp3_file;
+        $song->save();
+
+        Session::flash('success', 'Canción agregada exitosamente.');
+        return redirect()->route('DashboardSong.index');
     }
 
     /**
@@ -46,7 +61,6 @@ class SongController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -57,7 +71,8 @@ class SongController extends Controller
      */
     public function edit($id)
     {
-        //
+        $song = Song::findOrFail($id);
+        return view('dashboard.song.edit', compact('song'));
     }
 
     /**
@@ -69,7 +84,28 @@ class SongController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $song = Song::findOrFail($id);
+        $validatedData = $request->validate([
+            'title' => 'string|max:255',
+            'mp3_file_url' => 'file',
+        ]);
+
+
+        if (isset($validatedData['title'])) {
+            $song->title = $validatedData['title'];
+        }
+
+
+        if ($request->hasFile('mp3_file_url')) {
+            $mp3_file = $request->file('mp3_file_url')->store('songs', 'public');
+            $song->mp3_file_url = $mp3_file;
+        }
+
+
+        $song->save();
+
+        Session::flash('success', 'Canción actualizada exitosamente.');
+        return redirect()->route('DashboardSong.index');
     }
 
     /**
@@ -80,6 +116,9 @@ class SongController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $song = Song::findOrFail($id);
+        $song->delete();
+        Session::flash('success', 'Los datos se actualizaron exitosamente.');
+        return redirect()->route('DashboardAlbum.index');
     }
 }

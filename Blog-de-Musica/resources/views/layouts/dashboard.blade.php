@@ -104,8 +104,8 @@
                         <div class="collapse" id="SongAlbumMenu" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Canciones</a>
-                                <a class="nav-link" href="layout-static.html">Álbumes</a>
+                                <a class="nav-link" href={{ route('DashboardSong.index') }}>Canciones</a>
+                                <a class="nav-link" href={{ route('DashboardAlbum.index') }}>Álbumes</a>
                             </nav>
                         </div>
                     </div>
@@ -123,7 +123,8 @@
     <script src="{{ asset('libs/js/scripts.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('js')
 </body>
 

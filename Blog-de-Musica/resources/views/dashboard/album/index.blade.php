@@ -1,7 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('css')
-
     <link href="{{ asset('css/tabla.css') }}" rel="stylesheet">
     <link type="text/css" rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
@@ -11,62 +10,60 @@
         href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
 @endsection
 
-@section('pageTitle', 'Dashboard Artistas')
+@section('pageTitle', 'Dashboard Album')
 
 @section('content')
     <div id="layoutSidenav_content" class="position-relative">
         <main class="position-relative content-margin">
             <div class="container-fluid">
-                <h1 class="mb-0">Artistas</h1>
+                <h1 class="mb-0">Albums</h1>
                 <ol class="breadcrumb ">
-                    <li class="breadcrumb-item active">Dashboard/Artista</li>
+                    <li class="breadcrumb-item active">Dashboard/Albums</li>
                 </ol>
                 <div class="card mt-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Listado de Artistas</h5>
+                        <h5 class="mb-0">Listado de Albums</h5>
                         <div class="d-flex align-items-center">
                             <button class="btn btn-danger me-2" id="pdfButton"><i class="fa-solid fa-file-pdf"></i>
                                 PDF</button>
                             <button class="btn btn-success me-2" id="excelButton"><i class="fa-solid fa-file-excel"></i>
                                 Excel</button>
-                            <a class="btn btn-primary" href="{{ route('DashboardArtist.create') }}"><i
+                            <a class="btn btn-primary" href="{{ route('DashboardAlbum.create') }}"><i
                                     class="fa-solid fa-plus"></i> Añadir</a>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive"> <!-- Agregamos la clase para manejar el scroll -->
-                            <table id="artist" class="table table-dark table-striped"
+                            <table id="album" class="table table-dark table-striped"
                                 style="width: 100%; overflow-x: auto;">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Tipo de artista</th>
-                                        <th scope="col">Géneros</th>
+                                        <th scope="col">Titulo del Album</th>
+                                        <th scope="col">Año Lanzamiento</th>
+                                        <th scope="col">Imagen</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($artists as $artist)
+                                    @foreach ($albums as $album)
                                         <tr>
-                                            <td>{{ $artist->id }}</td>
-                                            <td>{{ $artist->name }}</td>
-                                            <td>{{ $artist->group_type }}</td>
+                                            <td>{{ $album->id }}</td>
+                                            <td>{{ $album->title }}</td>
+                                            <td>{{ $album->release_year }}</td>
                                             <td>
-                                                @foreach ($artist->musicGenre as $musicGenre)
-                                                    {{ $musicGenre->name }},
-                                                @endforeach
+                                                <img src="{{ asset('storage/' . $album->cover_image_url) }}" alt="Album Cover" width="100">
                                             </td>
                                             <td>
-                                                <form id="delete-form-{{ $artist->id }}"
-                                                    action="{{ route('DashboardArtist.destroy', $artist->id) }}"
+                                                <form id="delete-form-{{ $album->id }}"
+                                                    action="{{ route('DashboardAlbum.destroy', $album->id) }}"
                                                     method="POST">
                                                     <a class="btn btn-info"
-                                                        href="{{ route('DashboardArtist.edit', ['id' => $artist->id]) }}">
+                                                        href="{{ route('DashboardAlbum.edit', ['id' => $album->id]) }}">
                                                         <i class="fa-solid fa-pen-to-square"></i> Editar
                                                     </a>
                                                     @csrf
-                                                    <button onclick="confirmDelete(event, {{ $artist->id }})"
+                                                    <button onclick="confirmDelete(event, {{ $album->id }})"
                                                         class="btn btn-danger">
                                                         <i class="fa-solid fa-trash"></i> Borrar
                                                     </button>
@@ -147,7 +144,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            var table = $('#artist').DataTable({
+            var table = $('#album').DataTable({
                 responsive: true,
                 buttons: [{
                         extend: 'excel',
@@ -179,6 +176,7 @@
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-CL.json',
                     lengthMenu: 'Items por pág. <select>' +
+                        '<option value="5">5</option>' +
                         '<option value="10">10</option>' +
                         '<option value="20">20</option>' +
                         '<option value="30">30</option>' +
