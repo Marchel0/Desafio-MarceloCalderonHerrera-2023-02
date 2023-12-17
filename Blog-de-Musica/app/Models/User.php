@@ -43,4 +43,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //HAce realaciona la tabla de likes y la relacuion user con esta
+    // public function likes()
+    // {
+    //     return $this->belongsToMany(Song::class, 'UserLikesSongs', 'user_id', 'song_id')
+    //         ->withTimestamps();
+    // }
+
+    // public function favoriteArtists()
+    // {
+    //     return $this->belongsToMany(Artist::class, 'UserFavoriteArtists', 'user_id', 'artist_id')
+    //         ->withTimestamps();
+    // }
 }

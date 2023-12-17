@@ -1,0 +1,9 @@
+.content-margin {
+    margin-bottom: 0px;
+    margin-right: 10px;
+}
+
+#layoutSidenav_content {
+    max-height: 100vh; /* Establece la altura máxima al 100% del viewport height */
+    overflow-y: auto; /* Agrega scroll vertical solo si es necesario */
+}
