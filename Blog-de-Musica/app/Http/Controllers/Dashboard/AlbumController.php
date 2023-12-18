@@ -39,16 +39,16 @@ class AlbumController extends Controller
     public function store(Request $request)
     {
 
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'release_year' => 'required|numeric',
-            'cover_image_url' => 'required|image|mimes:jpeg,png,jpg,gif',
-        ]);
+        // $validatedData = $request->validate([
+        //     'title' => 'required|string|max:255',
+        //     //'release_year' => 'required|string',
+        //     'cover_image_url' => 'required|image|mimes:jpeg,png,jpg,gif',
+        // ]);
 
         $imagePath = $request->file('cover_image_url')->store('albums', 'public');
         $album = new Album();
-        $album->title = $validatedData['title'];
-        $album->release_year = $validatedData['release_year'];
+        $album->title = $request['title'];
+        $album->release_year = $request['release_year'];
         $album->cover_image_url = $imagePath;
         $album->save();
 
@@ -91,7 +91,7 @@ class AlbumController extends Controller
         // return $request;
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
-            'release_year' => 'required|numeric',
+            //'release_year' => 'required|string|max:10',
             'cover_image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
         // Procesamiento de la imagen si se actualiza

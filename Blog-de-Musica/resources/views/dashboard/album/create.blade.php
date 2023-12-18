@@ -20,7 +20,7 @@
                                                 del Album :
                                             </label>
                                             <div class="col-sm-9">
-                                                <input id="title" name="name" type="text" class="form-control"
+                                                <input id="title" name="title" type="text" class="form-control"
                                                     tabindex="1">
                                             </div>
                                         </div>
@@ -28,7 +28,7 @@
                                             <label for="release_year" class="fw-bold col-sm-3 col-form-label text-end">Año
                                                 Lanzamiento : </label>
                                             <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="release_year"
+                                                <input type="date" class="form-control" id="release_year"
                                                     name="release_year" required>
                                             </div>
                                         </div>

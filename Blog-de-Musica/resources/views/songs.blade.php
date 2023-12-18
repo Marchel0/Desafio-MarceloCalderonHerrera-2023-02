@@ -4,11 +4,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10"> <!-- Ajustamos el tamaño de la columna -->
-                <!-- Barra de búsqueda -->
-                <div class="search-bar">
+                <h1 class="text-center fw-bold">Canciones</h1>
+                {{-- <div class="search-bar text-center">
                     <input id="searchInput" type="text" placeholder="Buscar canciones...">
                     <button id="searchBtn" type="button">Buscar</button>
-                </div>
+                </div> --}}
                 <hr>
                 <section class="song-blocks">
                     <div class="row">
@@ -30,6 +30,12 @@
                                             </audio>
                                         @endif
                                     </div>
+                                    <p class="mt-1">Generos musicales del Álbum:
+                                        <p>@foreach ($song->musicGenre as $musicGenre)
+                                            {{ $musicGenre->name }},
+                                        @endforeach</p>
+
+                                    </p>
                                 </div>
                             </div>
                         @endforeach

@@ -15,7 +15,7 @@ class AlbumFactory extends Factory
     {
         return [
             "title"=> $this->faker->name(),
-            "release_year"=> $this->faker->year($max = "now"),
+            "release_year"=> $this->faker->dateTimeBetween('-20 years', 'now')->format('d-m-Y'),
             "cover_image_url" => 'albums/'. $this->faker->image(public_path('storage/albums'), 640,480,null,false),
         ];
     }

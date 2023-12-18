@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\Artist;
 use App\Models\Song;
 use Illuminate\Http\Request;
 
@@ -30,8 +31,8 @@ class HomeController extends Controller
     }
     public function albumsview()
     {
-        $albums = Album::all();
-        return view('albums',compact('albums'));
+        $albumsongs = Album::with('songs')->get();
+        return view('albums',compact('albumsongs'));
     }
     public function songview()
     {
@@ -41,21 +42,9 @@ class HomeController extends Controller
     }
     public function artistview()
     {
-        $albums = Album::all();
-        return view('home',compact('albums'));
+        $songartists = Artist::with('songs')->get();
+        return view('artists',compact('songartists'));
     }
 
-    public function getSongs()
-    {
-        $songs = Song::all();
-        return view('songs', compact('songs'));
-    }
-
-    public function searchSongs(Request $request)
-    {
-        $term = $request->input('term');
-        $songs = Song::where('title', 'like', '%'.$term.'%')->get();
-        return view('songs', compact('songs'));
-    }
 
 }

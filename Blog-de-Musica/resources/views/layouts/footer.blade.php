@@ -7,7 +7,7 @@
 
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                     <p class="h3">Acerca de</p>
-                    <p class="h5">Contacto</p>
+                    <p class="h5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt esse voluptatem fuga explicabo doloremque quaerat distinctio excepturi minima veniam, ex in ab et ratione maxime dicta soluta! Quasi, doloremque dicta.</p>
                 </div>
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                     <p class="h5">Contacto</p>
