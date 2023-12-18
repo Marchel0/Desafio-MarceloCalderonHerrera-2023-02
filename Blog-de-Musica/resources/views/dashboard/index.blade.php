@@ -7,13 +7,7 @@
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    DataTable
-                </div>
-                <div class="card-body"></div>
-            </div>
+            <h1 class="text-center">CHART O TABLAS </h1>
         </div>
     </main>
     <footer class="py-4 bg-light mt-auto">

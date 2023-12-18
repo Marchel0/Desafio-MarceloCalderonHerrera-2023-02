@@ -10,40 +10,24 @@
                     <div class="col-lg-6"> <!-- Tamaño del contenedor del formulario -->
 
                         <div class="card mb-4 mt-5 bg-dark text-white">
-                            <h2 class="text-center">EDITAR REGISTRO CANCIÓN</h2>
+                            <h2 class="text-center">EDITAR REGISTRO ARTISTA</h2>
                             <div class="card mb-4 mt-5 bg-dark text-white">
                                 <div class="card-body">
-                                    <form action="{{ route('DashboardSong.update', $song->id) }}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form action="{{ route('DashboardMusicGenre.update', $musicGenre->id) }}" method="POST">
                                         @csrf
                                         <div class="row mb-3 align-items-center">
-                                            <label for="title" class=" fw-bold col-sm-3 col-form-label text-end">Nombre :
+                                            <label for="name" class=" fw-bold col-sm-3 col-form-label text-end">Nombre :
                                             </label>
                                             <div class="col-sm-9">
-                                                <input id="title" name="title" type="text" class="form-control"
-                                                    value="{{ $song->title }}" tabindex="1">
+                                                <input id="name" name="name" type="text" class="form-control"
+                                                    value="{{ $musicGenre->name }}" tabindex="1">
                                             </div>
                                         </div>
-                                        <div class="row mb-3 align-items-center">
-                                            <label for="mp3_file_url"
-                                                class="fw-bold col-sm-3 col-form-label text-end">Canción : </label>
-                                            <div class="col-sm-9 text-center">
-                                                @if ($song->mp3_file_url)
-                                                    <audio controls>
-                                                        <source src="{{ asset('storage/' . $song->mp3_file_url) }}"
-                                                            type="audio/mpeg">
-                                                        Tu navegador no soporta la reproducción de audio.
-                                                    </audio>
-                                                @endif
-                                                <input type="file" class="form-control mt-2" id="mp3_file_url"
-                                                    name="mp3_file_url" accept="audio/mpeg">
-                                            </div>
-                                        </div>
-
                                         <div class="row justify-content-center">
                                             <div class="col-sm-9 text-center">
-                                                <a href="{{ route('DashboardSong.index') }}" class="btn btn-secondary me-2"
-                                                    tabindex="4"><i class="fa-solid fa-arrow-left"></i> Atrás</a>
+                                                <a href="{{ route('DashboardMusicGenre.index') }}"
+                                                    class="btn btn-secondary me-2" tabindex="4"><i
+                                                        class="fa-solid fa-arrow-left"></i> Atrás</a>
                                                 <button type="submit" class="btn btn-primary" tabindex="5"><i
                                                         class="fa-solid fa-floppy-disk"></i> Guardar</button>
                                             </div>

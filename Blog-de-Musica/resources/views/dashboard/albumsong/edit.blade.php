@@ -10,49 +10,52 @@
                     <div class="col-lg-6"> <!-- Tamaño del contenedor del formulario -->
 
                         <div class="card mb-4 mt-5 bg-dark text-white">
-                            <h2 class="text-center">CREAR REGISTRO CANCIÓN</h2>
+                            <h2 class="text-center">EDITAR RELACION ARTISTAS CON CANCIÓN</h2>
                             <div class="card mb-4 mt-5 bg-dark text-white">
                                 <div class="card-body">
-                                    <form action="{{ route('DashboardSong.store') }}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form action="{{ route('DashboardAlbumSong.update', $albumsong->id) }}" method="POST">
                                         @csrf
                                         <div class="row mb-3 align-items-center">
-                                            <label for="title" class="fw-bold col-sm-3 col-form-label text-end">Titulo
-                                                Canción :
-                                            </label>
+                                            <label for="album_id"
+                                                class="fw-bold col-sm-3 col-form-label text-end">Artista : </label>
                                             <div class="col-sm-9">
-                                                <input id="title" name="title" type="text" class="form-control"
-                                                    tabindex="1">
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3 align-items-center">
-                                            <label for="artist_music_genres"
-                                                class="fw-bold col-sm-3 col-form-label text-end">Géneros
-                                                Musical : </label>
-                                            <div class="col-sm-9">
-                                                <select class="js-example-basic-multiple js-states form-control"
-                                                    name="artist_music_genres[]" multiple="multiple"
-                                                    id="artist_music_genres">
-                                                    @foreach ($musicGenre as $genre)
-                                                        <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                                                <select class="js-example-basic-single js-states form-control"
+                                                    name="album_id"
+                                                    id="album_id">
+                                                    @foreach ($albums as $album)
+                                                        <option value="{{ $album->id }}"
+                                                            @if ($album->id == $albumsong->album_id) selected @endif>{{ $album->title }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="row mb-3 align-items-center">
-                                            <label for="mp3_file_url"
-                                                class="fw-bold col-sm-3 col-form-label text-end">Archivo mp3:</label>
+                                            <label for="song_id"
+                                                class="fw-bold col-sm-3 col-form-label text-end">Cancion : </label>
                                             <div class="col-sm-9">
-                                                <input id="mp3_file_url" name="mp3_file_url" type="file"
-                                                    class="form-control" accept="audio/mpeg">
+                                                <select class="js-example-basic-single js-states form-control"
+                                                    name="song_id"
+                                                    id="song_id">
+                                                    @foreach ($songs as $song)
+                                                        <option value="{{ $song->id }}"
+                                                            @if ($song->id == $albumsong->song_id) selected @endif>{{ $song->title }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
-
-
+                                        <div class="row mb-3 align-items-center">
+                                            <label for="track_number" class="fw-bold col-sm-3 col-form-label text-end">Nombre :
+                                            </label>
+                                            <div class="col-sm-9">
+                                                <input id="track_number" name="track_number" type="number" class="form-control"
+                                                       value="{{ $albumsong->track_number }}" tabindex="1">
+                                            </div>
+                                        </div>
                                         <div class="row justify-content-center">
                                             <div class="col-sm-9 text-center">
-                                                <a href="{{ route('DashboardSong.index') }}" class="btn btn-secondary me-2"
-                                                    tabindex="4"><i class="fa-solid fa-arrow-left"></i> Atrás</a>
+                                                <a href="{{ route('DashboardAlbumSong.index') }}"
+                                                    class="btn btn-secondary me-2" tabindex="4"><i
+                                                        class="fa-solid fa-arrow-left"></i> Atrás</a>
                                                 <button type="submit" class="btn btn-primary" tabindex="5"><i
                                                         class="fa-solid fa-floppy-disk"></i> Guardar</button>
                                             </div>
@@ -79,7 +82,6 @@
         </footer>
     </div>
 @endsection
-
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>

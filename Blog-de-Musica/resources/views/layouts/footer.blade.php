@@ -6,7 +6,8 @@
             <div class="row text-center text-md-start">
 
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                    <p class="h3">Logo</p>
+                    <p class="h3">Acerca de</p>
+                    <p class="h5">Contacto</p>
                 </div>
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
                     <p class="h5">Contacto</p>

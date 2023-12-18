@@ -20,7 +20,7 @@ class SongMusicGenreSeeder extends Seeder
 
         $songs->each(function ($song) use ($genres) {
             // Asigna géneros musicales a las canciones de forma aleatoria
-            $song->musicGenres()->attach(
+            $song->musicGenre()->attach(
                 $genres->random(rand(1, 3))->pluck('id')->toArray()
             );
         });

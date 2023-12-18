@@ -10,49 +10,60 @@
                     <div class="col-lg-6"> <!-- Tamaño del contenedor del formulario -->
 
                         <div class="card mb-4 mt-5 bg-dark text-white">
-                            <h2 class="text-center">CREAR REGISTRO CANCIÓN</h2>
+                            <h2 class="text-center">CREAR RELACION ARTISTAS CON CANCIÓN</h2>
                             <div class="card mb-4 mt-5 bg-dark text-white">
                                 <div class="card-body">
-                                    <form action="{{ route('DashboardSong.store') }}" method="POST"
+                                    <form action="{{ route('DashboardSongArtist.store') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="row mb-3 align-items-center">
-                                            <label for="title" class="fw-bold col-sm-3 col-form-label text-end">Titulo
-                                                Canción :
-                                            </label>
+                                            <label for="song"
+                                                class="fw-bold col-sm-3 col-form-label text-end">Cancion : </label>
                                             <div class="col-sm-9">
-                                                <input id="title" name="title" type="text" class="form-control"
-                                                    tabindex="1">
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3 align-items-center">
-                                            <label for="artist_music_genres"
-                                                class="fw-bold col-sm-3 col-form-label text-end">Géneros
-                                                Musical : </label>
-                                            <div class="col-sm-9">
-                                                <select class="js-example-basic-multiple js-states form-control"
-                                                    name="artist_music_genres[]" multiple="multiple"
-                                                    id="artist_music_genres">
-                                                    @foreach ($musicGenre as $genre)
-                                                        <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                                                <select class="js-example-basic-single js-states form-control"
+                                                    name="song"
+                                                    id="song">
+                                                    @foreach ($songs as $song)
+                                                        <option value="{{ $song->id }}">{{ $song->title }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="row mb-3 align-items-center">
-                                            <label for="mp3_file_url"
-                                                class="fw-bold col-sm-3 col-form-label text-end">Archivo mp3:</label>
+                                            <label for="artist"
+                                                class="fw-bold col-sm-3 col-form-label text-end">Artista : </label>
                                             <div class="col-sm-9">
-                                                <input id="mp3_file_url" name="mp3_file_url" type="file"
-                                                    class="form-control" accept="audio/mpeg">
+                                                <select class="js-example-basic-single js-states form-control"
+                                                    name="artist"
+                                                    id="artist">
+                                                    @foreach ($artists as $artist)
+                                                        <option value="{{ $artist->id }}">{{ $artist->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
+                                        <div class="row mb-3 align-items-center">
+                                            <label for="artist_role"
+                                                class="fw-bold col-sm-3 col-form-label text-end">Rol artista : </label>
+                                            <div class="col-sm-9">
+                                                <select class="js-example-basic-single form-control" name="artist_role"
+                                                    id="artist_role">
+                                                    <option value="Artista Principal">Artista Principal</option>
+                                                    <option value="Colaborador Principal">Colaborador Principal</option>
+                                                    <option value="Destacado">Destacado</option>
+                                                    <option value="Interprete Solitario">Interprete Solitario</option>
+                                                    <option value="Grupo Principal">Grupo Principal</option>
+                                                    <option value="Colaboracion Conjunta">Colaboración Conjunta</option>
+                                                    <option value="Presentacion Especial">Presentación Especial</option>
+                                                </select>
 
-
+                                            </div>
+                                        </div>
                                         <div class="row justify-content-center">
                                             <div class="col-sm-9 text-center">
-                                                <a href="{{ route('DashboardSong.index') }}" class="btn btn-secondary me-2"
-                                                    tabindex="4"><i class="fa-solid fa-arrow-left"></i> Atrás</a>
+                                                <a href="{{ route('DashboardSongArtist.index') }}"
+                                                    class="btn btn-secondary me-2" tabindex="4"><i
+                                                        class="fa-solid fa-arrow-left"></i> Atrás</a>
                                                 <button type="submit" class="btn btn-primary" tabindex="5"><i
                                                         class="fa-solid fa-floppy-disk"></i> Guardar</button>
                                             </div>

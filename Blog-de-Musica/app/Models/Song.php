@@ -13,10 +13,10 @@ class Song extends Model
 
     public function artists()
     {
-        return $this->belongsToMany(Artist::class, 'song_artists', 'song_id', 'artist_id');
+        return $this->belongsToMany(Artist::class, 'song_artists', 'song_id', 'artist_id')->withPivot('id','artist_role');
     }
 
-    public function musicGenres()
+    public function musicGenre()
     {
         return $this->belongsToMany(MusicGenre::class, 'song_music_genres', 'song_id', 'music_genre_id');
     }
@@ -28,6 +28,6 @@ class Song extends Model
 
     public function albums()
     {
-        return $this->belongsToMany(Album::class, 'album_songs', 'song_id', 'album_id');
+        return $this->belongsToMany(Album::class, 'album_songs', 'song_id', 'album_id')->withPivot('id','track_number');
     }
 }

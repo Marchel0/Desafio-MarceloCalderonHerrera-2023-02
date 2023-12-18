@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\MusicGenre;
 use App\Models\Song;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -16,7 +17,7 @@ class SongController extends Controller
      */
     public function index()
     {
-        $song    = Song::all();
+        $song = Song::with('musicGenre')->get();
         return view('dashboard.song.index', ['song' => $song]);
     }
 
@@ -27,7 +28,8 @@ class SongController extends Controller
      */
     public function create()
     {
-        return response()->view('dashboard.song.create');
+        $musicGenre = MusicGenre::all();
+        return response()->view('dashboard.song.create', ['musicGenre' => $musicGenre]);
     }
 
     /**
@@ -41,6 +43,7 @@ class SongController extends Controller
         $validatedData = $request->validate([
             'title' => 'string|max:255',
             'mp3_file_url' => 'file',
+            'artist_music_genres' => 'required',
         ]);
 
         $mp3_file = $request->file('mp3_file_url')->store('songs', 'public');
@@ -48,6 +51,7 @@ class SongController extends Controller
         $song->title = $request->title;
         $song->mp3_file_url = $mp3_file;
         $song->save();
+        $song->musicGenre()->attach($validatedData['artist_music_genres']);
 
         Session::flash('success', 'Canción agregada exitosamente.');
         return redirect()->route('DashboardSong.index');

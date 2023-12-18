@@ -42,7 +42,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Tipo de artista</th>
-                                        <th scope="col">Géneros</th>
+                                        <th scope="col">Géneros Musicales</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>

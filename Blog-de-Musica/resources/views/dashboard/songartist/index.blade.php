@@ -17,19 +17,19 @@
     <div id="layoutSidenav_content" class="position-relative">
         <main class="position-relative content-margin">
             <div class="container-fluid">
-                <h1 class="mb-0">Canciones</h1>
+                <h1 class="mb-0">Artistas con Canciones</h1>
                 <ol class="breadcrumb ">
-                    <li class="breadcrumb-item active">Dashboard/Canciones</li>
+                    <li class="breadcrumb-item active">Dashboard/Artistas con Canciones</li>
                 </ol>
                 <div class="card mt-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Listado de Canciones</h5>
+                        <h5 class="mb-0">Listado de Artistas con Canciones</h5>
                         <div class="d-flex align-items-center">
                             <button class="btn btn-danger me-2" id="pdfButton"><i class="fa-solid fa-file-pdf"></i>
                                 PDF</button>
                             <button class="btn btn-success me-2" id="excelButton"><i class="fa-solid fa-file-excel"></i>
                                 Excel</button>
-                            <a class="btn btn-primary" href="{{ route('DashboardSong.create') }}"><i
+                            <a class="btn btn-primary" href="{{ route('DashboardSongArtist.create') }}"><i
                                     class="fa-solid fa-plus"></i> Añadir</a>
                         </div>
                     </div>
@@ -41,37 +41,36 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Titulo Canción</th>
-                                        <th scope="col">Género Musical</th>
-                                        <th scope="col">Archivo mp3</th>
+                                        <th scope="col">Artista</th>
+                                        <th scope="col">Rol</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($song as $song)
-                                        <tr>
-                                            <td>{{ $song->id }}</td>
-                                            <td>{{ $song->title }}</td>
-                                            <td>
-                                                @foreach ($song->musicGenre as $musicGenre)
-                                                    {{ $musicGenre->name }},
-                                                @endforeach
-                                            </td>
-                                            <td>{{ $song->mp3_file_url }}</td>
-                                            <td>
-                                                <form id="delete-form-{{ $song->id }}"
-                                                    action="{{ route('DashboardSong.destroy', $song->id) }}" method="POST">
-                                                    <a class="btn btn-info"
-                                                        href="{{ route('DashboardSong.edit', ['id' => $song->id]) }}">
-                                                        <i class="fa-solid fa-pen-to-square"></i> Editar
-                                                    </a>
-                                                    @csrf
-                                                    <button onclick="confirmDelete(event, {{ $song->id }})"
-                                                        class="btn btn-danger">
-                                                        <i class="fa-solid fa-trash"></i> Borrar
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                        @foreach ($song->artists as $artist)
+                                            <tr>
+                                                <td>{{ $artist->pivot->id }}</td>
+                                                <td>{{ $song->title }}</td>
+                                                <td>{{ $artist->name }}</td>
+                                                <td>{{ $artist->pivot->artist_role }}</td>
+                                                <td>
+                                                    <form id="delete-form-{{ $song->id }}"
+                                                        action="{{ route('DashboardSongArtist.destroy', $artist->pivot->id) }}"
+                                                        method="POST">
+                                                        <a class="btn btn-info"
+                                                            href="{{ route('DashboardSongArtist.edit', ['id' => $artist->pivot->id]) }}">
+                                                            <i class="fa-solid fa-pen-to-square"></i> Editar
+                                                        </a>
+                                                        @csrf
+                                                        <button onclick="confirmDelete(event, {{ $artist->pivot->id }})"
+                                                            class="btn btn-danger">
+                                                            <i class="fa-solid fa-trash"></i> Borrar
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     @endforeach
                                 </tbody>
                             </table>
